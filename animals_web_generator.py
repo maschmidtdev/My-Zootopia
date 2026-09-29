@@ -21,31 +21,32 @@ def generate_output(animals_data):
     """ Generates a string from data"""
     output = ''
     for animal in animals_data:
-        output += '<li class="cards__item">'
-        for key in ['Name', 'Diet', 'Location', 'Type']:
+        output += '\t\t\t<li class="cards__item">\n'
+
+        for key in ['Name', 'Diet', 'Location', 'Type', 'p']:
             match key:
                 case "Name":
-                    output += f"{key}: {animal['name']}\n"
+                    output += f'\t\t\t\t<div class ="card__title">{animal["name"]}</div>\n'
                 case "Diet":
-                    output += f"{key}: {animal['characteristics']['diet']}\n"
+                    output += '\t\t\t\t<p class="card__text">\n'
+                    output += f'\t\t\t\t\t<strong>{key}</strong>: {animal["characteristics"]["diet"]}</br>\n'
                 case "Location":
-                    output += f"{key}: {animal['locations'][0]}\n"
+                    output += f'\t\t\t\t\t<strong>{key}</strong>: {animal["locations"][0]}</br>\n'
                 case "Type":
-                    if 'type' in animal['characteristics']:
-                        output += f"{key}: {animal['characteristics']['type']}\n"
-            output += '</br>'
+                    if 'type' in animal["characteristics"]:
+                        output += f'\t\t\t\t\t<strong>{key}</strong>: {animal["characteristics"]["type"]}</br>\n'
+                case 'p':
+                    output += '\t\t\t\t</p>\n'
 
-    output += '</li class="cards__item">'
+        output += '\t\t\t</li>'
     return output
 
 
 def main():
     animals_data = load_data('animals_data.json')
     output = generate_output(animals_data)
-
     html = read_html()
-    html = html.replace('__REPLACE_ANIMALS_INFO__', output)
-
+    html = html.replace('            __REPLACE_ANIMALS_INFO__', output)
     write_html(html)
 
 
