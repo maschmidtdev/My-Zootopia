@@ -21,6 +21,7 @@ def generate_output(animals_data):
     """ Generates a string from data"""
     output = ''
     for animal in animals_data:
+        output += '<li class="cards__item">'
         for key in ['Name', 'Diet', 'Location', 'Type']:
             match key:
                 case "Name":
@@ -32,8 +33,9 @@ def generate_output(animals_data):
                 case "Type":
                     if 'type' in animal['characteristics']:
                         output += f"{key}: {animal['characteristics']['type']}\n"
-        output += f"\n"
+            output += '</br>'
 
+    output += '</li class="cards__item">'
     return output
 
 
