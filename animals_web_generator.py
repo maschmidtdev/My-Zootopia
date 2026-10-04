@@ -9,36 +9,28 @@ def load_data(file_path):
 
 def read_html():
     """ Reads HTML file """
-    with open('animals_template.html', "r") as handle:
+    with open('animals_template.html', "r", encoding='utf-8') as handle:
         return handle.read()
 
 
 def write_html(string):
     """ Writes HTML file """
-    with open('animals_template.html', "w") as handle:
+    with open('animals.html', "w", encoding='utf-8') as handle:
         handle.write(string)
 
 
 def serialize_animal(animal):
     """ Generate one list card from animal data """
     output = '\t\t\t<li class="cards__item">\n'
-
-    for key in ['Name', 'Diet', 'Location', 'Type', 'p']:
-        match key:
-            case "Name":
-                output += f'\t\t\t\t<div class ="card__title">{animal["name"]}</div>\n'
-            case "Diet":
-                output += '\t\t\t\t<p class="card__text">\n'
-                output += f'\t\t\t\t\t<strong>{key}</strong>: {animal["characteristics"]["diet"]}</br>\n'
-            case "Location":
-                output += f'\t\t\t\t\t<strong>{key}</strong>: {animal["locations"][0]}</br>\n'
-            case "Type":
-                if 'type' in animal["characteristics"]:
-                    output += f'\t\t\t\t\t<strong>{key}</strong>: {animal["characteristics"]["type"]}</br>\n'
-            case 'p':
-                output += '\t\t\t\t</p>\n'
-
+    output += f'\t\t\t\t<div class ="card__title">{animal["name"]}</div>\n'
+    output += '\t\t\t\t<p class="card__text">\n'
+    output += f'\t\t\t\t\t<strong>Diet</strong>: {animal["characteristics"]["diet"]}</br>\n'
+    output += f'\t\t\t\t\t<strong>Location</strong>: {animal["locations"][0]}</br>\n'
+    if 'type' in animal["characteristics"]:
+        output += f'\t\t\t\t\t<strong>Type</strong>: {animal["characteristics"]["type"]}</br>\n'
+    output += '\t\t\t\t</p>\n'
     output += '\t\t\t</li>'
+
     return output
 
 
